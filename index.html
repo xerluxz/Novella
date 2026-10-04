@@ -1,5 +1,4 @@
-<!doctype html>
-<html lang="th"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
 <title>Novella</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gowun+Batang:wght@400;700&family=Noto+Sans+KR:wght@400;500;700&family=Noto+Sans+Thai:wght@400;500;600&display=swap">
 <style>
@@ -104,28 +103,13 @@ textarea{resize:vertical;min-height:60px}
 .u-ex .n,.u-ex .m{grid-column:1;overflow-wrap:anywhere}
 .u-ex button{grid-column:2;grid-row:1}
 @media (prefers-reduced-motion:no-preference){.btn,.lvl,nav button{transition:background .15s}}
-[hidden]{display:none!important}
-body{margin:0}
-nav{grid-template-columns:repeat(5,1fr)}
-nav button{font-size:.85rem}
-.top{display:flex;gap:12px;align-items:flex-start;justify-content:space-between}
-.top>div:first-child{min-width:0}
-.langsw{display:flex;background:var(--surface-2);border-radius:99px;padding:3px;flex:none}
-.langsw button{border:0;background:transparent;color:var(--muted);font:inherit;font-size:.8rem;font-weight:600;padding:4px 11px;border-radius:99px;cursor:pointer}
-.langsw button[aria-pressed="true"]{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px rgba(0,0,0,.12)}
-.hint{font-size:.8rem;color:var(--muted);margin:0}
-.hint a{color:var(--accent)}
 </style>
-</head><body>
 
 <div class="wrap">
   <header>
-    <div class="top">
     <div>
       <h1>Novella</h1>
-      <p class="sub">เก็บคำศัพท์และไวยากรณ์ แล้วให้ AI แต่งเรื่องสั้นจากสิ่งที่คุณรู้แล้ว</p>
-    </div>
-    <div class="langsw" role="group" aria-label="Language"><button type="button" data-lang="th">ไทย</button><button type="button" data-lang="en">EN</button></div>
+      <p class="sub">เก็บคำศัพท์และไวยากรณ์ แล้วให้ Claude แต่งเรื่องสั้นจากสิ่งที่คุณรู้แล้ว</p>
     </div>
     <div class="counts" id="counts"></div>
   </header>
@@ -135,7 +119,6 @@ nav button{font-size:.85rem}
     <button role="tab" data-tab="grammar" aria-selected="false">ไวยากรณ์</button>
     <button role="tab" data-tab="story" aria-selected="false">เรื่องสั้น</button>
     <button role="tab" data-tab="review" aria-selected="false">ทบทวน</button>
-    <button role="tab" data-tab="settings" aria-selected="false">ตั้งค่า</button>
   </nav>
 
   <!-- VOCAB -->
@@ -241,33 +224,6 @@ nav button{font-size:.85rem}
     </div>
   </section>
 
-  <!-- SETTINGS -->
-  <section class="panel" id="p-settings" hidden>
-    <form class="box" id="cfgForm" autocomplete="off">
-      <p class="hint" id="cEmb" hidden>เว็บนี้มี AI key กลางให้แล้ว สร้างเรื่องได้ทันทีโดยไม่ต้องตั้งค่า หรือใส่ key ของคุณเองด้านล่างเพื่อใช้โควตาของคุณ</p>
-      <h2>เชื่อมต่อ AI (OpenRouter)</h2>
-      <p class="hint">สมัครและสร้าง API key ที่ <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> แล้วเลือกโมเดล Qwen ที่ลงท้ายด้วย <b>:free</b> จาก <a href="https://openrouter.ai/models?q=qwen" target="_blank" rel="noopener">รายชื่อโมเดล</a> รายชื่อโมเดลฟรีเปลี่ยนบ่อย ถ้าใช้ไม่ได้ให้เปลี่ยนชื่อโมเดล</p>
-      <label>API key<input id="cKey" type="password" placeholder="sk-or-v1-..." autocomplete="off"></label>
-      <label>ชื่อโมเดล<input id="cModel" placeholder="qwen/qwen3-235b-a22b:free"></label>
-      <label>Endpoint<input id="cUrl" placeholder="https://openrouter.ai/api/v1/chat/completions"></label>
-      <p class="hint">key เก็บในเบราว์เซอร์เครื่องนี้เท่านั้น ไม่ถูกส่งไปที่อื่นนอกจาก endpoint ด้านบน อย่าแชร์ลิงก์หรือไฟล์ที่ใส่ key ไว้ให้คนอื่น</p>
-      <div class="row">
-        <button class="btn primary" type="submit">บันทึก</button>
-        <button class="btn" type="button" id="cTest">ทดสอบการเชื่อมต่อ</button>
-        <span class="status" id="cStat"></span>
-      </div>
-    </form>
-    <div class="box">
-      <h2>สำรองข้อมูล</h2>
-      <p class="hint">ข้อมูลอยู่ในเบราว์เซอร์เครื่องนี้ ล้างข้อมูลเบราว์เซอร์แล้วจะหาย ส่งออกเก็บไว้เป็นระยะ หรือใช้ย้ายไปเครื่องอื่น</p>
-      <div class="row">
-        <button class="btn" type="button" id="xExport">ส่งออกเป็นไฟล์ JSON</button>
-        <button class="btn" type="button" id="xImportBtn">นำเข้าจากไฟล์</button>
-        <input type="file" id="xImport" accept="application/json,.json" hidden>
-      </div>
-    </div>
-  </section>
-
   <div class="status" id="where"></div>
 </div>
 <div class="toast" id="toast" hidden></div>
@@ -275,10 +231,6 @@ nav button{font-size:.85rem}
 <script>
 (function(){
 'use strict';
-/* Shared key for every visitor. Paste your OpenRouter key between the quotes.
-   Anyone can read it from the page source, so use a key with a $0 / small credit limit and free models only. */
-var EMBEDDED_KEY='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';
-function effKey(){return (cfg&&cfg.key)||EMBEDDED_KEY}
 var LV={new:'เพิ่งเริ่มจำ',learning:'กำลังจำ',known:'จำได้แล้ว'};
 var LVORDER=['new','learning','known'];
 var POS=['นาม','สรรพนาม','กริยา','คุณศัพท์','วิเศษณ์','ลักษณนาม/ตัวเลข','คำเชื่อม/คำช่วย','อื่นๆ'];
@@ -319,33 +271,33 @@ function sampleData(){
   S.stories=[];
 }
 async function initStore(){
-  var had=false;
-  ['vocab','grammar','stories'].forEach(function(k){var v=lsGet(k);if(v){had=true;S[k]=v}});
-  if(!had){sampleData();['vocab','grammar','stories'].forEach(save)}
-  $('where').textContent='บันทึกในเบราว์เซอร์เครื่องนี้เท่านั้น ส่งออกสำรองได้ในแท็บตั้งค่า';
-  renderAll();
-}
-
-/* ---------- AI (OpenRouter, OpenAI-compatible) ---------- */
-var CFG_DEF={key:'',model:'qwen/qwen3-235b-a22b:free',url:'https://openrouter.ai/api/v1/chat/completions'};
-var cfg=Object.assign({},CFG_DEF,lsGet('cfg')||{});
-async function aiJson(prompt){
-  var res;
+  var L={};['vocab','grammar','stories'].forEach(function(k){L[k]=lsGet(k)});
+  var hasLocal=L.vocab||L.grammar||L.stories;
+  if(hasLocal){['vocab','grammar','stories'].forEach(function(k){S[k]=L[k]||[]})}
+  var db=null,uid_=null;
   try{
-    res=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+effKey(),'X-Title':'Korean Library'},
-      body:JSON.stringify({model:cfg.model,temperature:0.7,messages:[
-        {role:'system',content:'You are a Korean teaching assistant. Reply with one valid JSON object only. No markdown, no commentary.'},
-        {role:'user',content:prompt}]})});
-  }catch(e){throw{code:'network',message:'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตหรือ endpoint'}}
-  if(res.status===401||res.status===403)throw{code:'not_granted',message:'API key ไม่ถูกต้อง'};
-  if(res.status===429)throw{code:'rate_limited',message:'ใช้เกินโควตาฟรี รอสักครู่หรือเปลี่ยนโมเดล'};
-  var j=null;try{j=await res.json()}catch(e){}
-  if(!res.ok)throw{code:'http',message:(j&&j.error&&j.error.message)||('HTTP '+res.status)};
-  var txt=j&&j.choices&&j.choices[0]&&j.choices[0].message&&j.choices[0].message.content||'';
-  txt=txt.replace(/<think>[\s\S]*?<\/think>/g,'');
-  var i=txt.indexOf('{'),k=txt.lastIndexOf('}');
-  if(i<0||k<i)throw{code:'parse',message:'โมเดลตอบกลับในรูปแบบที่อ่านไม่ได้ ลองอีกครั้ง'};
-  try{return JSON.parse(txt.slice(i,k+1))}catch(e){throw{code:'parse',message:'โมเดลตอบกลับในรูปแบบที่อ่านไม่ได้ ลองอีกครั้ง'}}
+    if(window.claude&&window.claude.use){
+      db=await window.claude.use('db');
+      var user=await window.claude.use('user');
+      uid_=user?await user.id():null;
+    }
+  }catch(e){db=null}
+  var needSeed=!hasLocal;
+  if(db&&uid_){
+    try{
+      col=db.collection('data/users/'+uid_);
+      var found=false;
+      for(var k of ['vocab','grammar','stories']){
+        var snap=await col.doc(k).get();
+        if(snap.exists){found=true;S[k]=(snap.data()||{}).items||[]}
+      }
+      if(found){needSeed=false}
+      else if(hasLocal){['vocab','grammar','stories'].forEach(save);needSeed=false}
+    }catch(e){col=null}
+  }
+  if(needSeed){sampleData();['vocab','grammar','stories'].forEach(save)}
+  $('where').textContent=col?'บันทึกในบัญชีของคุณ ใช้ได้ทุกเครื่อง':'บันทึกในเบราว์เซอร์นี้เท่านั้น (ล้างข้อมูลเบราว์เซอร์แล้วจะหาย)';
+  renderAll();
 }
 
 /* ---------- helpers ---------- */
@@ -364,27 +316,29 @@ function usageBlock(v){
       return '<div class="u-ex"><div class="ko">'+esc(x.ko)+'</div>'+(x.rd?'<div class="n">'+esc(x.rd)+'</div>':'')+(x.th?'<div class="m">'+esc(x.th)+'</div>':'')+
       '<button class="btn small danger" data-act="delex" data-id="'+v.id+'" data-i="'+i+'">ลบ</button></div>';
     }).join('');
-  }else if(!v.usage){h+='<div class="status">ยังไม่มีประโยคตัวอย่าง เพิ่มเองในฟอร์มแก้ไข หรือให้ AI สร้างให้</div>'}
-  h+='<div class="row"><button class="btn small" data-act="genex" data-id="'+v.id+'"'+(busyUse[v.id]?' disabled':'')+'>'+(busyUse[v.id]?'กำลังสร้าง…':(exs.length||v.usage?'ขอตัวอย่างเพิ่มจาก AI':'ให้ AI สร้างตัวอย่าง'))+'</button></div></div>';
+  }else if(!v.usage){h+='<div class="status">ยังไม่มีประโยคตัวอย่าง เพิ่มเองในฟอร์มแก้ไข หรือให้ Claude สร้างให้</div>'}
+  h+='<div class="row"><button class="btn small" data-act="genex" data-id="'+v.id+'"'+(busyUse[v.id]?' disabled':'')+'>'+(busyUse[v.id]?'กำลังสร้าง…':(exs.length||v.usage?'ขอตัวอย่างเพิ่มจาก Claude':'ให้ Claude สร้างตัวอย่าง'))+'</button></div></div>';
   return h;
 }
 async function genUsage(id){
   var v=S.vocab.find(function(x){return x.id===id});if(!v)return;
-  if(!effKey()){toast('ใส่ API key ในแท็บตั้งค่าก่อน');return}
+  var sample=null;
+  try{sample=window.claude&&window.claude.use?await window.claude.use('sample'):null}catch(e){}
+  if(!sample){toast('เปิดในแอป Claude เพื่อใช้ฟีเจอร์นี้');return}
   busyUse[id]=true;renderVocab();
   var known=S.vocab.filter(function(x){return x.lv!=='new'&&x.id!==id}).slice(0,40).map(function(x){return x.ko}).join(', ');
   var gram=S.grammar.filter(function(g){return g.lv!=='new'}).map(function(g){return g.pat}).join(', ');
-  var prompt=''+LN().learner+' first-year learner of Korean. Word: '+v.ko+' ('+v.mn+', '+v.pos+').\n'+
+  var prompt='Thai first-year learner of Korean. Word: '+v.ko+' ('+v.mn+', '+v.pos+').\n'+
   'Give how this word is used in sentences. Prefer simple sentences built from these words the learner knows: '+(known||'(none)')+'. Prefer these grammar patterns: '+(gram||'polite -아/어요')+'.\n'+
-  'Return JSON only: {"usage":"1-2 short '+LN().tr+' sentences on the pattern, e.g. which particle or object marker goes with it and any common collocation","examples":[{"ko":"Korean sentence containing the word","rd":"'+LN().pr+' pronunciation","th":"'+LN().tr+' translation"}]} with exactly 3 examples, different patterns.'+
+  'Return JSON only: {"usage":"1-2 short Thai sentences on the pattern, e.g. which particle or object marker goes with it and any common collocation","examples":[{"ko":"Korean sentence containing the word","rd":"Thai-script pronunciation","th":"Thai translation"}]} with exactly 3 examples, different patterns.'+
   (v.exs&&v.exs.length?' Do not repeat these: '+v.exs.map(function(x){return x.ko}).join(' | '):'');
   try{
-    var r=await aiJson(prompt);
+    var r=await sample.json(prompt,{cache:false});
     if(!r||!r.examples||!r.examples.length)throw new Error('empty');
     v.usage=r.usage||v.usage||'';
     v.exs=(v.exs||[]).concat(r.examples.map(function(x){return{ko:x.ko||'',rd:x.rd||'',th:x.th||''}}));
     delete v.sample;save('vocab');
-  }catch(e){toast((e&&e.message)||'สร้างตัวอย่างไม่สำเร็จ ลองอีกครั้ง')}
+  }catch(e){toast(e&&e.code==='not_granted'?'ต้องอนุญาตให้ถาม Claude ก่อน':'สร้างตัวอย่างไม่สำเร็จ ลองอีกครั้ง')}
   finally{busyUse[id]=false;renderVocab()}
 }
 function tools(kind,it){
@@ -508,23 +462,27 @@ $('sGo').onclick=async function(){
   var gids=checked('sg');
   var gram=S.grammar.filter(function(g){return gids.indexOf(g.id)>-1});
   if(pool.length>70){pool=pool.slice().sort(function(){return Math.random()-.5}).slice(0,70)}
-  if(!effKey()){err.textContent='ใส่ API key ในแท็บตั้งค่าก่อน';err.hidden=false;return}
+  var sample=null;
+  try{sample=window.claude&&window.claude.use?await window.claude.use('sample'):null}catch(e){}
+  if(!sample){err.textContent='เปิดหน้านี้ในแอป Claude เพื่อใช้ฟีเจอร์แต่งเรื่อง';err.hidden=false;return}
   var btn=$('sGo');btn.disabled=true;$('sInfo').textContent='กำลังแต่งเรื่อง…';
-  var prompt='You write very short Korean reading practice stories for a '+LN().learner+' first-year learner.\n'+
+  var prompt='You write very short Korean reading practice stories for a Thai first-year learner.\n'+
   'STRICT RULES:\n- Use ONLY the vocabulary in VOCAB (conjugated as needed), plus basic particles (이/가, 은/는, 을/를, 에, 에서, 도, 와/과, 하고) and 이다/있다/없다 if needed.\n'+
   '- Use ONLY the grammar patterns in GRAMMAR (plus polite -아/어요 endings). If GRAMMAR is empty, use very simple present-tense polite sentences.\n'+
   '- Do not introduce any other content words. Prefer words marked learning/new so the learner practices them.\n'+
   '- Length: '+$('sLen').value+' sentences. Theme: '+($('sTheme').value.trim()||'free choice that fits the words')+'.\n'+
   'VOCAB (ko | meaning | pos | level):\n'+pool.map(function(v){return v.ko+' | '+v.mn+' | '+v.pos+' | '+v.lv}).join('\n')+'\n'+
   'GRAMMAR:\n'+(gram.length?gram.map(function(g){return g.pat+' | '+g.mn+(g.ex?' | e.g. '+g.ex:'')}).join('\n'):'(none)')+'\n'+
-  'Return JSON only: {"titleKo":string,"titleTh":"title in '+LN().tr+'","sentences":[{"ko":string,"rd":"'+LN().pr+' pronunciation of the sentence","th":"'+LN().tr+' translation"}],"used":[dictionary forms of VOCAB words actually used]}';
+  'Return JSON only: {"titleKo":string,"titleTh":string,"sentences":[{"ko":string,"rd":"Thai-script pronunciation of the sentence","th":"Thai translation"}],"used":[dictionary forms of VOCAB words actually used]}';
   try{
-    var r=await aiJson(prompt);
+    var r=await sample.json(prompt,{cache:false});
     if(!r||!r.sentences||!r.sentences.length)throw new Error('empty');
     curStory={id:uid(),titleKo:r.titleKo||'이야기',titleTh:r.titleTh||'',sentences:r.sentences.map(function(x){return{ko:x.ko||'',rd:x.rd||'',th:x.th||''}}),used:r.used||[],at:Date.now()};
     renderStory();$('sOut').scrollIntoView({behavior:'smooth',block:'nearest'});
   }catch(e){
-    err.textContent=(e&&e.message)||'แต่งเรื่องไม่สำเร็จ ลองกดอีกครั้ง';
+    if(e&&e.code==='not_granted')err.textContent='ต้องอนุญาตให้หน้านี้ถาม Claude ก่อนจึงจะแต่งเรื่องได้';
+    else if(e&&e.code==='rate_limited')err.textContent='ใช้บ่อยเกินไป รอสักครู่แล้วลองใหม่';
+    else err.textContent='แต่งเรื่องไม่สำเร็จ ลองกดอีกครั้ง';
     err.hidden=false;
   }finally{btn.disabled=false;$('sInfo').textContent=''}
 };
@@ -534,7 +492,7 @@ document.addEventListener('click',function(e){
   var t=e.target.closest('[data-tab],[data-act]');if(!t)return;
   if(t.dataset.tab){
     document.querySelectorAll('#tabs button').forEach(function(b){b.setAttribute('aria-selected',b===t?'true':'false')});
-    ['vocab','grammar','story','review','settings'].forEach(function(n){$('p-'+n).hidden=n!==t.dataset.tab});
+    ['vocab','grammar','story','review'].forEach(function(n){$('p-'+n).hidden=n!==t.dataset.tab});
     if(t.dataset.tab==='review')startReview();
     return;
   }
@@ -576,106 +534,6 @@ document.addEventListener('click',function(e){
 function rerender(kind){kind==='vocab'?renderVocab():kind==='grammar'?renderGrammar():renderSaved()}
 
 /* ---------- init ---------- */
-/* ---------- language (Thai / English UI) ---------- */
-var lang=(function(){try{return localStorage.getItem('kr_lang')==='th'?'th':'en'}catch(e){return 'en'}})();
-function LN(){return lang==='en'?{learner:'English-speaking',pr:'Revised Romanization (Latin)',tr:'English'}:{learner:'Thai',pr:'Thai-script',tr:'Thai'}}
-var EN_D={
-'เก็บคำศัพท์และไวยากรณ์ แล้วให้ AI แต่งเรื่องสั้นจากสิ่งที่คุณรู้แล้ว':'Save your vocabulary and grammar, then have AI write short stories from what you already know',
-'เพิ่งเริ่มจำ':'Just started','กำลังจำ':'Learning','จำได้แล้ว':'Known','ยังไม่จำ':"Don't know yet",
-'คำศัพท์':'Vocabulary','ไวยากรณ์':'Grammar','เรื่องสั้น':'Stories','ทบทวน':'Review','ตั้งค่า':'Settings',
-'เพิ่มคำศัพท์':'Add a word','คำเกาหลี':'Korean word','คำอ่าน':'Reading','ความหมาย':'Meaning','ชนิดของคำ':'Part of speech',
-'นาม':'Noun','สรรพนาม':'Pronoun','กริยา':'Verb','คุณศัพท์':'Adjective','วิเศษณ์':'Adverb','ลักษณนาม/ตัวเลข':'Counter / number','คำเชื่อม/คำช่วย':'Particle / connector','อื่นๆ':'Other',
-'ระดับความชำนาญ':'Proficiency level','โน้ต (ไม่บังคับ)':'Note (optional)','ประโยคตัวอย่าง (ไม่บังคับ)':'Example sentence (optional)','คำแปลประโยค':'Sentence translation',
-'บันทึกคำ':'Save word','ยกเลิกการแก้ไข':'Cancel editing','ทุกระดับ':'All levels','ทุกชนิดคำ':'All parts of speech','ตัวอย่าง':'Example','ตัวอย่างประโยค':'Example sentences',
-'แก้ไข':'Edit','ลบ':'Delete','ยืนยันลบ':'Confirm delete','ค้นหาคำหรือความหมาย':'Search words or meanings','แตะเพื่อเปลี่ยนระดับ':'Tap to change level',
-'เพิ่มไวยากรณ์':'Add a grammar point','รูปแบบประโยค':'Sentence pattern','ความหมาย / วิธีใช้':'Meaning / usage','ประโยคตัวอย่าง':'Example sentence','คำแปลตัวอย่าง':'Example translation',
-'บันทึกไวยากรณ์':'Save grammar point','แก้ไขไวยากรณ์':'Edit grammar point','แก้ไขคำศัพท์':'Edit word','บันทึกการแก้ไข':'Save changes',
-'แต่งเรื่องสั้นจากคลังของคุณ':'Write a story from your library','ใช้คำศัพท์ระดับ':'Use vocabulary at level','ไวยากรณ์ที่ให้ใช้ (ไม่เลือกเลย = ใช้ประโยคพื้นฐานมาก)':'Grammar to use (none selected = very basic sentences)',
-'ความยาว':'Length','สั้น 4–5 ประโยค':'Short, 4–5 sentences','กลาง 6–8 ประโยค':'Medium, 6–8 sentences','ยาว 10–12 ประโยค':'Long, 10–12 sentences',
-'ธีม (ไม่บังคับ)':'Theme (optional)','เช่น วันแรกที่มหาวิทยาลัย':'e.g. first day at university','สร้างเรื่องสั้น':'Generate story',
-'เรื่องที่บันทึกไว้':'Saved stories','เรื่องที่บันทึกไว้จะแสดงตรงนี้':'Saved stories will appear here','เปิดอ่าน':'Read','คำแปล':'Translation','บันทึกแล้ว':'Saved','บันทึกเรื่องนี้':'Save this story','บันทึกเรื่องแล้ว':'Story saved',
-'กำลังแต่งเรื่อง…':'Writing the story…','ต้องมีคำศัพท์ในระดับที่เลือกอย่างน้อย 3 คำ ลองติ๊กระดับเพิ่มหรือเพิ่มคำใหม่':'You need at least 3 words at the selected levels. Tick more levels or add words.','แต่งเรื่องไม่สำเร็จ ลองกดอีกครั้ง':'Could not write the story. Try again.',
-'ทบทวนคำศัพท์':'Review vocabulary','ดูคำตอบ':'Show answer','เริ่มรอบใหม่':'Start a new round','ไม่มีคำในระดับที่เลือก ลองติ๊กระดับอื่น หรือเพิ่มคำศัพท์':'No words at the selected levels. Tick other levels or add words.',
-'เชื่อมต่อ AI (OpenRouter)':'Connect AI (OpenRouter)','สมัครและสร้าง API key ที่':'Create an API key at','แล้วเลือกโมเดล Qwen ที่ลงท้ายด้วย':'then pick a Qwen model ending in','จาก':'from the','รายชื่อโมเดล':'model list',
-'รายชื่อโมเดลฟรีเปลี่ยนบ่อย ถ้าใช้ไม่ได้ให้เปลี่ยนชื่อโมเดล':'Free models change often. If one stops working, change the model name.','ชื่อโมเดล':'Model name',
-'key เก็บในเบราว์เซอร์เครื่องนี้เท่านั้น ไม่ถูกส่งไปที่อื่นนอกจาก endpoint ด้านบน อย่าแชร์ลิงก์หรือไฟล์ที่ใส่ key ไว้ให้คนอื่น':'The key is stored only in this browser and is sent nowhere except the endpoint above. Do not share a link or file that contains your key.',
-'บันทึก':'Save','เว็บนี้มี AI key กลางให้แล้ว สร้างเรื่องได้ทันทีโดยไม่ต้องตั้งค่า หรือใส่ key ของคุณเองด้านล่างเพื่อใช้โควตาของคุณ':'This site includes a shared AI key, so you can generate stories without any setup. Or enter your own key below to use your own quota.','ทดสอบการเชื่อมต่อ':'Test connection','สำรองข้อมูล':'Backup',
-'ข้อมูลอยู่ในเบราว์เซอร์เครื่องนี้ ล้างข้อมูลเบราว์เซอร์แล้วจะหาย ส่งออกเก็บไว้เป็นระยะ หรือใช้ย้ายไปเครื่องอื่น':'Your data lives in this browser. Clearing browser data erases it. Export a copy now and then, or use it to move to another device.',
-'ส่งออกเป็นไฟล์ JSON':'Export as JSON file','นำเข้าจากไฟล์':'Import from file','บันทึกในเบราว์เซอร์เครื่องนี้เท่านั้น ส่งออกสำรองได้ในแท็บตั้งค่า':'Saved in this browser only. Back up from the Settings tab.',
-'ใส่ API key ในแท็บตั้งค่าก่อน':'Add your API key in Settings first','ใส่ API key ก่อน':'Add your API key first','สร้างตัวอย่างไม่สำเร็จ ลองอีกครั้ง':'Could not generate examples. Try again.',
-'เชื่อมต่อไม่ได้ ตรวจอินเทอร์เน็ตหรือ endpoint':'Cannot connect. Check your internet or the endpoint.','API key ไม่ถูกต้อง':'Invalid API key','ใช้เกินโควตาฟรี รอสักครู่หรือเปลี่ยนโมเดล':'Free quota exceeded. Wait a moment or change the model.',
-'โมเดลตอบกลับในรูปแบบที่อ่านไม่ได้ ลองอีกครั้ง':'The model replied in a format that could not be read. Try again.',
-'กำลังสร้าง…':'Generating…','ขอตัวอย่างเพิ่มจาก AI':'Ask AI for more examples','ให้ AI สร้างตัวอย่าง':'Generate examples with AI','ยังไม่มีประโยคตัวอย่าง เพิ่มเองในฟอร์มแก้ไข หรือให้ AI สร้างให้':'No example sentences yet. Add one in the edit form or have AI generate some.',
-'ไม่พบคำที่ตรงกับตัวกรอง':'No words match the filters','ยังไม่มีคำศัพท์ เพิ่มคำแรกจากฟอร์มด้านบน':'No words yet. Add your first one above.','ยังไม่มีไวยากรณ์ เพิ่มรูปแบบแรกจากฟอร์มด้านบน':'No grammar yet. Add your first pattern above.','ยังไม่มีไวยากรณ์ในคลัง':'No grammar in the library yet',
-'แก้ไขแล้ว':'Updated','เพิ่มคำแล้ว':'Word added','เพิ่มไวยากรณ์แล้ว':'Grammar point added','บันทึกการตั้งค่าแล้ว':'Settings saved','กำลังทดสอบ…':'Testing…','เชื่อมต่อไม่สำเร็จ':'Connection failed','อ่านไฟล์ไม่ได้':'Could not read the file',
-/* sample data */
-'ฮัก-เกียว':'hak-gyo','โรงเรียน':'school','ชิน-กู':'chin-gu','เพื่อน':'friend','คา-ดา':'ga-da','ไป':'to go','มอก-ตา':'mok-da','กิน':'to eat','คอ-พี':'keo-pi','กาแฟ':'coffee',
-'เย-ปือ-ดา':'ye-ppeu-da','สวย น่ารัก':'pretty, cute','โอ-นือล':'o-neul','วันนี้':'today','มัน-นา-ดา':'man-na-da','พบ เจอ':'to meet','ใช้กับ -을/를':'used with -을/를','ใช้กับ 에 / 에서':'used with 에 / 에서',
-'ตามด้วย 에 เมื่อบอกจุดหมาย และ 에서 เมื่อบอกสถานที่ทำกิจกรรม':'Use 에 for a destination and 에서 for where an activity happens',
-'โช-นึน ฮัก-เกียว-เอ คา-โย':'jeo-neun hak-gyo-e ga-yo','ฮัก-เกียว-เอ-ซอ ชิน-กู-รึล มัน-นา-โย':'hak-gyo-e-seo chin-gu-reul man-na-yo',
-'ฉันไปโรงเรียน':'I go to school','พบเพื่อนที่โรงเรียน':'Meet a friend at school','ท้ายประโยคสุภาพแบบไม่เป็นทางการ':'informal polite sentence ending','ไปที่... (สถานที่)':'go to... (a place)',
-'เพื่อนไปโรงเรียน':'A friend goes to school','พรุ่งนี้จะพบเพื่อน':'I will meet a friend tomorrow','จะทำ... (อนาคต)':'will do... (future)','พรุ่งนี้จะไปโรงเรียน':'I will go to school tomorrow','ต่อท้ายกริยา':'attaches to verbs'
-};
-var EN_P=[
-[/^ตัวอย่างประโยค \((\d+)\)$/,'Example sentences ($1)'],
-[/^ครบ (\d+) คำแล้ว$/,'All $1 words done'],
-[/^(.*) · (\d+) ประโยค$/,'$1 · $2 sentences'],
-[/^นำเข้า (\d+) รายการ$/,'Imported $1 items'],
-[/^เชื่อมต่อสำเร็จ: (.*)$/,'Connected: $1']
-];
-function tx(s){
-  var m=s.match(/^(\s*)([\s\S]*?)(\s*)$/),core=m[2];
-  if(!core||!/[฀-๿]/.test(core))return s;
-  var r=EN_D[core];
-  if(r===undefined){for(var i=0;i<EN_P.length;i++){if(EN_P[i][0].test(core)){r=core.replace(EN_P[i][0],EN_P[i][1]);break}}}
-  return r===undefined?s:m[1]+r+m[3];
-}
-function trNode(n){
-  var p=n.parentNode;if(p&&(p.nodeName==='SCRIPT'||p.nodeName==='STYLE'))return;
-  var cur=n.nodeValue;
-  if(n.__en!==undefined&&cur===n.__en){
-    if(lang==='th'){n.nodeValue=n.__th;n.__en=undefined;n.__th=undefined}
-    return;
-  }
-  n.__en=undefined;
-  if(lang==='en'){var t=tx(cur);if(t!==cur){n.__th=cur;n.__en=t;n.nodeValue=t}}
-}
-function trWalk(root){
-  var w=document.createTreeWalker(root,NodeFilter.SHOW_TEXT),n,list=[];
-  while((n=w.nextNode()))list.push(n);
-  list.forEach(trNode);
-}
-function trAttrs(root){
-  root.querySelectorAll('[placeholder],[title]').forEach(function(e){
-    ['placeholder','title'].forEach(function(k){
-      var v=e.getAttribute(k);if(v==null)return;
-      var o='__o'+k,t='__t'+k;
-      if(lang==='en'){
-        if(e[t]!==undefined&&v===e[t])return;
-        var x=tx(v);if(x!==v){e[o]=v;e[t]=x;e.setAttribute(k,x)}
-      }else if(e[t]!==undefined&&v===e[t]){e.setAttribute(k,e[o]);e[o]=undefined;e[t]=undefined}
-    });
-  });
-}
-var trBusy=false;
-new MutationObserver(function(muts){
-  if(trBusy)return;trBusy=true;
-  try{muts.forEach(function(m){
-    if(m.type==='characterData')trNode(m.target);
-    else m.addedNodes.forEach(function(n){if(n.nodeType===3)trNode(n);else if(n.nodeType===1){trWalk(n);trAttrs(n)}});
-  })}finally{trBusy=false}
-}).observe(document.body,{childList:true,subtree:true,characterData:true});
-function setLang(l){
-  lang=l==='en'?'en':'th';
-  try{localStorage.setItem('kr_lang',lang)}catch(e){}
-  trBusy=true;trWalk(document.body);trAttrs(document.body);trBusy=false;
-  document.documentElement.lang=lang;
-  document.title='Novella';
-  document.querySelectorAll('.langsw button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===lang?'true':'false')});
-}
-document.querySelector('.langsw').addEventListener('click',function(e){var b=e.target.closest('[data-lang]');if(b)setLang(b.dataset.lang)});
-
-
 opts($('vPos'),POS.map(function(p){return[p,p]}));
 opts($('vLv'),LVORDER.map(function(l){return[l,LV[l]]}));$('vLv').value='new';
 opts($('gLv'),LVORDER.map(function(l){return[l,LV[l]]}));$('gLv').value='new';
@@ -684,39 +542,9 @@ opts($('vFPos'),POS.map(function(p){return[p,p]}),true,'ทุกชนิดค
 lvChecks($('sLvls'),['known','learning'],'sl');
 lvChecks($('rLvls'),['new','learning'],'rl');
 $('rLvls').addEventListener('change',startReview);
-$('cEmb').hidden=!EMBEDDED_KEY;$('cKey').value=cfg.key;$('cModel').value=cfg.model;$('cUrl').value=cfg.url;
-function readCfg(){cfg={key:$('cKey').value.trim(),model:$('cModel').value.trim()||CFG_DEF.model,url:$('cUrl').value.trim()||CFG_DEF.url};lsSet('cfg',cfg)}
-$('cfgForm').addEventListener('submit',function(e){e.preventDefault();readCfg();toast('บันทึกการตั้งค่าแล้ว')});
-$('cTest').onclick=async function(){
-  readCfg();var st=$('cStat');
-  if(!effKey()){st.textContent='ใส่ API key ก่อน';return}
-  st.textContent='กำลังทดสอบ…';
-  try{var r=await aiJson('Return {"ok":true,"hello":"안녕하세요"}');st.textContent='เชื่อมต่อสำเร็จ: '+(r.hello||'ok')}
-  catch(e){st.textContent=(e&&e.message)||'เชื่อมต่อไม่สำเร็จ'}
-};
-$('xExport').onclick=function(){
-  var blob=new Blob([JSON.stringify({vocab:S.vocab,grammar:S.grammar,stories:S.stories},null,1)],{type:'application/json'});
-  var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='korean-library-'+new Date().toISOString().slice(0,10)+'.json';
-  document.body.appendChild(a);a.click();a.remove();setTimeout(function(){URL.revokeObjectURL(a.href)},1000);
-};
-$('xImportBtn').onclick=function(){$('xImport').click()};
-$('xImport').onchange=function(){
-  var f=this.files[0];if(!f)return;var rd=new FileReader();
-  rd.onload=function(){
-    try{
-      var d=JSON.parse(rd.result),n=0;
-      ['vocab','grammar','stories'].forEach(function(k){
-        (d[k]||[]).forEach(function(it){if(it&&it.id&&!S[k].some(function(x){return x.id===it.id})){S[k].push(it);n++}});
-        save(k);
-      });
-      renderAll();toast('นำเข้า '+n+' รายการ');
-    }catch(e){toast('อ่านไฟล์ไม่ได้')}
-  };
-  rd.readAsText(f);this.value='';
-};
-setLang(lang);
 initStore().catch(function(){renderAll()});
 renderAll();
 })();
 </script>
+
 </body></html>
