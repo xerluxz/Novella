@@ -244,6 +244,7 @@ nav button{font-size:.85rem}
   <!-- SETTINGS -->
   <section class="panel" id="p-settings" hidden>
     <form class="box" id="cfgForm" autocomplete="off">
+      <p class="hint" id="cEmb" hidden>เว็บนี้มี AI key กลางให้แล้ว สร้างเรื่องได้ทันทีโดยไม่ต้องตั้งค่า หรือใส่ key ของคุณเองด้านล่างเพื่อใช้โควตาของคุณ</p>
       <h2>เชื่อมต่อ AI (OpenRouter)</h2>
       <p class="hint">สมัครและสร้าง API key ที่ <a href="https://openrouter.ai/keys" target="_blank" rel="noopener">openrouter.ai/keys</a> แล้วเลือกโมเดล Qwen ที่ลงท้ายด้วย <b>:free</b> จาก <a href="https://openrouter.ai/models?q=qwen" target="_blank" rel="noopener">รายชื่อโมเดล</a> รายชื่อโมเดลฟรีเปลี่ยนบ่อย ถ้าใช้ไม่ได้ให้เปลี่ยนชื่อโมเดล</p>
       <label>API key<input id="cKey" type="password" placeholder="sk-or-v1-..." autocomplete="off"></label>
@@ -274,6 +275,10 @@ nav button{font-size:.85rem}
 <script>
 (function(){
 'use strict';
+/* Shared key for every visitor. Paste your OpenRouter key between the quotes.
+   Anyone can read it from the page source, so use a key with a $0 / small credit limit and free models only. */
+var EMBEDDED_KEY='';
+function effKey(){return (cfg&&cfg.key)||EMBEDDED_KEY}
 var LV={new:'เพิ่งเริ่มจำ',learning:'กำลังจำ',known:'จำได้แล้ว'};
 var LVORDER=['new','learning','known'];
 var POS=['นาม','สรรพนาม','กริยา','คุณศัพท์','วิเศษณ์','ลักษณนาม/ตัวเลข','คำเชื่อม/คำช่วย','อื่นๆ'];
@@ -327,7 +332,7 @@ var cfg=Object.assign({},CFG_DEF,lsGet('cfg')||{});
 async function aiJson(prompt){
   var res;
   try{
-    res=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+cfg.key,'X-Title':'Korean Library'},
+    res=await fetch(cfg.url,{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+effKey(),'X-Title':'Korean Library'},
       body:JSON.stringify({model:cfg.model,temperature:0.7,messages:[
         {role:'system',content:'You are a Korean teaching assistant. Reply with one valid JSON object only. No markdown, no commentary.'},
         {role:'user',content:prompt}]})});
@@ -365,7 +370,7 @@ function usageBlock(v){
 }
 async function genUsage(id){
   var v=S.vocab.find(function(x){return x.id===id});if(!v)return;
-  if(!cfg.key){toast('ใส่ API key ในแท็บตั้งค่าก่อน');return}
+  if(!effKey()){toast('ใส่ API key ในแท็บตั้งค่าก่อน');return}
   busyUse[id]=true;renderVocab();
   var known=S.vocab.filter(function(x){return x.lv!=='new'&&x.id!==id}).slice(0,40).map(function(x){return x.ko}).join(', ');
   var gram=S.grammar.filter(function(g){return g.lv!=='new'}).map(function(g){return g.pat}).join(', ');
@@ -503,7 +508,7 @@ $('sGo').onclick=async function(){
   var gids=checked('sg');
   var gram=S.grammar.filter(function(g){return gids.indexOf(g.id)>-1});
   if(pool.length>70){pool=pool.slice().sort(function(){return Math.random()-.5}).slice(0,70)}
-  if(!cfg.key){err.textContent='ใส่ API key ในแท็บตั้งค่าก่อน';err.hidden=false;return}
+  if(!effKey()){err.textContent='ใส่ API key ในแท็บตั้งค่าก่อน';err.hidden=false;return}
   var btn=$('sGo');btn.disabled=true;$('sInfo').textContent='กำลังแต่งเรื่อง…';
   var prompt='You write very short Korean reading practice stories for a '+LN().learner+' first-year learner.\n'+
   'STRICT RULES:\n- Use ONLY the vocabulary in VOCAB (conjugated as needed), plus basic particles (이/가, 은/는, 을/를, 에, 에서, 도, 와/과, 하고) and 이다/있다/없다 if needed.\n'+
@@ -594,7 +599,7 @@ var EN_D={
 'เชื่อมต่อ AI (OpenRouter)':'Connect AI (OpenRouter)','สมัครและสร้าง API key ที่':'Create an API key at','แล้วเลือกโมเดล Qwen ที่ลงท้ายด้วย':'then pick a Qwen model ending in','จาก':'from the','รายชื่อโมเดล':'model list',
 'รายชื่อโมเดลฟรีเปลี่ยนบ่อย ถ้าใช้ไม่ได้ให้เปลี่ยนชื่อโมเดล':'Free models change often. If one stops working, change the model name.','ชื่อโมเดล':'Model name',
 'key เก็บในเบราว์เซอร์เครื่องนี้เท่านั้น ไม่ถูกส่งไปที่อื่นนอกจาก endpoint ด้านบน อย่าแชร์ลิงก์หรือไฟล์ที่ใส่ key ไว้ให้คนอื่น':'The key is stored only in this browser and is sent nowhere except the endpoint above. Do not share a link or file that contains your key.',
-'บันทึก':'Save','ทดสอบการเชื่อมต่อ':'Test connection','สำรองข้อมูล':'Backup',
+'บันทึก':'Save','เว็บนี้มี AI key กลางให้แล้ว สร้างเรื่องได้ทันทีโดยไม่ต้องตั้งค่า หรือใส่ key ของคุณเองด้านล่างเพื่อใช้โควตาของคุณ':'This site includes a shared AI key, so you can generate stories without any setup. Or enter your own key below to use your own quota.','ทดสอบการเชื่อมต่อ':'Test connection','สำรองข้อมูล':'Backup',
 'ข้อมูลอยู่ในเบราว์เซอร์เครื่องนี้ ล้างข้อมูลเบราว์เซอร์แล้วจะหาย ส่งออกเก็บไว้เป็นระยะ หรือใช้ย้ายไปเครื่องอื่น':'Your data lives in this browser. Clearing browser data erases it. Export a copy now and then, or use it to move to another device.',
 'ส่งออกเป็นไฟล์ JSON':'Export as JSON file','นำเข้าจากไฟล์':'Import from file','บันทึกในเบราว์เซอร์เครื่องนี้เท่านั้น ส่งออกสำรองได้ในแท็บตั้งค่า':'Saved in this browser only. Back up from the Settings tab.',
 'ใส่ API key ในแท็บตั้งค่าก่อน':'Add your API key in Settings first','ใส่ API key ก่อน':'Add your API key first','สร้างตัวอย่างไม่สำเร็จ ลองอีกครั้ง':'Could not generate examples. Try again.',
@@ -679,12 +684,12 @@ opts($('vFPos'),POS.map(function(p){return[p,p]}),true,'ทุกชนิดค
 lvChecks($('sLvls'),['known','learning'],'sl');
 lvChecks($('rLvls'),['new','learning'],'rl');
 $('rLvls').addEventListener('change',startReview);
-$('cKey').value=cfg.key;$('cModel').value=cfg.model;$('cUrl').value=cfg.url;
+$('cEmb').hidden=!EMBEDDED_KEY;$('cKey').value=cfg.key;$('cModel').value=cfg.model;$('cUrl').value=cfg.url;
 function readCfg(){cfg={key:$('cKey').value.trim(),model:$('cModel').value.trim()||CFG_DEF.model,url:$('cUrl').value.trim()||CFG_DEF.url};lsSet('cfg',cfg)}
 $('cfgForm').addEventListener('submit',function(e){e.preventDefault();readCfg();toast('บันทึกการตั้งค่าแล้ว')});
 $('cTest').onclick=async function(){
   readCfg();var st=$('cStat');
-  if(!cfg.key){st.textContent='ใส่ API key ก่อน';return}
+  if(!effKey()){st.textContent='ใส่ API key ก่อน';return}
   st.textContent='กำลังทดสอบ…';
   try{var r=await aiJson('Return {"ok":true,"hello":"안녕하세요"}');st.textContent='เชื่อมต่อสำเร็จ: '+(r.hello||'ok')}
   catch(e){st.textContent=(e&&e.message)||'เชื่อมต่อไม่สำเร็จ'}

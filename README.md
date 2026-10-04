@@ -12,6 +12,8 @@ A personal Korean vocabulary and grammar library that writes short reading-pract
 - Thai / English interface
 
 ## Setup
+If the site owner added a shared key (`EMBEDDED_KEY` in `index.html`), no setup is needed. Otherwise:
+
 1. Create an API key at https://openrouter.ai/keys
 2. Open the app, go to **Settings**, paste the key, choose a Qwen model ending in `:free`, and press **Test connection**
 
